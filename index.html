@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <title>DocZ - Central de Notificações</title>
     <style>
-        /* CSS BASE - FIDELIDADE TOTAL AO ORIGINAL */
+        /* ============================================
+           SISTEMA DE GRID: MÚLTIPLOS DE 8
+           Base: 8px
+           ============================================ */
+        
         * {
             margin: 0;
             padding: 0;
@@ -25,57 +29,42 @@
         body {
             min-height: 100%;
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 12px;
+            font-size: 12px;  /* 1.5x8 = 12px */
             color: #595959;
-            line-height: 20px;
+            line-height: 16px; /* 2x8 = 16px */
             position: relative;
             background-color: #f2f2f2;
-            padding: 20px;
-        }
-
-        img {
-            border: 0;
+            padding: 16px;     /* 2x8 = 16px */
         }
 
         /* WIDGET PRINCIPAL */
         .widget {
             background: #f9f9f9;
             border: 1px solid #cdcdcd;
-            margin-top: 32px;
+            margin-top: 32px;  /* 4x8 = 32px */
             clear: both;
             box-shadow: 0 1px 0 #fff;
-            -moz-box-shadow: 0 1px 0 #fff;
-            -webkit-box-shadow: 0 1px 0 #fff;
-            -moz-border-radius: 3px;
-            -webkit-border-radius: 3px;
-            -khtml-border-radius: 3px;
-            border-radius: 3px;
-        }
-
-        .widget .title:first-child {
-            -webkit-border-top-right-radius: 3px;
-            -webkit-border-top-left-radius: 3px;
-            -moz-border-radius-topright: 3px;
-            -moz-border-radius-topleft: 3px;
+            border-radius: 8px; /* 1x8 = 8px */
         }
 
         .widget .title {
-            height: 36px;
+            height: 40px;      /* 5x8 = 40px */
             background: #efefef url('https://docz.sosdocs.com.br/Docz/app/images/backgrounds/titleBg.png') repeat-x;
             border-bottom: 1px solid #cdcdcd;
+            border-radius: 8px 8px 0 0;
         }
 
         .widget .title .titleIcon {
             float: left;
-            padding: 11px 11px;
+            padding: 12px;     /* 1.5x8 = 12px */
             border-right: 1px solid #D5D5D5;
         }
 
         .widget .title h6 {
             float: left;
-            font-size: 12px;
+            font-size: 12px;   /* 1.5x8 = 12px */
             font-weight: bold;
-            padding: 9px 12px 8px 12px;
+            padding: 12px 16px 12px 16px; /* 1.5x8 e 2x8 */
             color: #595959;
         }
 
@@ -86,11 +75,12 @@
 
         /* FORM ROWS */
         .formRow {
-            padding: 5px 5px;
+            padding: 8px 8px;  /* 1x8 = 8px */
             clear: both;
             border-bottom: 1px solid #E2E2E2;
             border-top: 1px solid white;
             position: relative;
+            transition: opacity 0.2s;
         }
 
         .formRow:first-child {
@@ -101,29 +91,22 @@
             border-bottom: none;
         }
 
-        .formRow label {
-            display: block;
-            font-weight: bold;
-            color: #444;
-            margin-bottom: 5px;
-        }
-
         .clear {
             clear: both;
         }
 
-        /* NOTIFICAÇÕES DENTRO DO FORMROW - SEM HOVER */
+        /* NOTIFICAÇÕES */
         .notif-item {
             display: flex;
             align-items: center;
-            padding: 5px 0;
+            padding: 8px 0;    /* 1x8 = 8px */
             cursor: pointer;
         }
 
         .notif-icon {
-            width: 30px;
+            width: 32px;       /* 4x8 = 32px */
             text-align: center;
-            margin-right: 10px;
+            margin-right: 16px; /* 2x8 = 16px */
         }
 
         .notif-content {
@@ -134,11 +117,11 @@
             display: block;
             font-weight: normal;
             color: #595959;
-            margin-bottom: 3px;
+            margin-bottom: 4px; /* 0.5x8 = 4px */
         }
 
         .notif-desc {
-            font-size: 11px;
+            font-size: 11px;   /* aprox 1.375x8 */
             color: #777;
             display: block;
             overflow: hidden;
@@ -149,60 +132,84 @@
         .notif-date {
             font-size: 10px;
             color: #999;
-            margin-left: 15px;
+            margin-left: 16px; /* 2x8 = 16px */
             white-space: nowrap;
         }
 
         .notif-actions {
             text-align: center;
-            width: 80px;
+            width: 80px;       /* 10x8 = 80px */
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;          /* 1x8 = 8px */
         }
 
-        .notif-actions svg,
-        .notif-actions img {
+        .notif-actions svg {
             cursor: pointer;
             opacity: 0.4;
-            margin: 0 4px;
-            vertical-align: middle;
             transition: 0.2s;
         }
 
-        .notif-actions svg:hover,
-        .notif-actions img:hover {
+        .notif-actions svg:hover {
             opacity: 1;
-            transform: scale(1.1);
         }
 
-        /* REMOVIDO: DESTAQUE PARA NOTIFICAÇÕES NOVAS */
-        /* REMOVIDO: HOVER EFFECT */
-
-        .row-fade-out {
-            opacity: 0;
-            transform: translateX(20px);
-            pointer-events: none;
-            transition: 0.2s;
+        /* NOTIFICAÇÃO LIDA */
+        .formRow.lida {
+            background-color: #fcfcfc;
         }
 
-        /* BADGE DE NOTIFICAÇÕES NOVAS */
+        .formRow.lida .notif-title {
+            font-weight: normal !important;
+            color: #999;
+        }
+
+        .formRow.lida .notif-desc {
+            color: #bbb;
+        }
+
+        /* SEPARADORES */
+        .section-divider {
+            background: #eee;
+            padding: 8px 16px; /* 1x8 e 2x8 */
+            font-weight: bold;
+            font-size: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .section-divider:not(:first-of-type) {
+            border-top: 1px solid #cdcdcd;
+        }
+
+        /* MENSAGEM VAZIA */
+        .empty-message {
+            text-align: center;
+            padding: 32px;     /* 4x8 = 32px */
+            color: #999;
+            font-style: italic;
+        }
+
+        /* BADGE */
         .notif-badge {
             float: right;
             font-size: 11px;
             color: #878787;
             font-weight: normal;
-            padding: 9px 12px 8px 0;
+            padding: 12px 16px 12px 0; /* 1.5x8 e 2x8 */
         }
 
-        /* BOTÃO SPRITE (MODAL SIMPLES) */
+        /* BOTÕES */
         .uButton {
             display: inline-block;
-            padding: 5px 18px;
+            padding: 8px 24px; /* 1x8 e 3x8 */
             font-size: 11px;
             font-weight: bold;
             text-decoration: none;
             cursor: pointer;
-            border-radius: 2px;
+            border-radius: 4px; /* 0.5x8 = 4px */
             background: url('https://docz.sosdocs.com.br/Docz/app/images/ui/usualButtons.png') repeat-x;
-            line-height: 14px;
+            line-height: 16px; /* 2x8 = 16px */
             text-transform: uppercase;
         }
 
@@ -229,37 +236,38 @@
         .modal-content {
             background: #fff;
             border: 1px solid #888;
-            border-radius: 3px;
-            width: 480px;
+            border-radius: 8px; /* 1x8 = 8px */
+            width: 480px;       /* 60x8 = 480px */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .modal-header {
             background: #efefef url('https://docz.sosdocs.com.br/Docz/app/images/backgrounds/titleBg.png') repeat-x;
-            height: 32px;
+            height: 40px;       /* 5x8 = 40px */
             display: flex;
             align-items: center;
-            padding: 0 10px;
+            padding: 0 16px;    /* 2x8 = 16px */
             border-bottom: 1px solid #cdcdcd;
             font-size: 12px;
             font-weight: bold;
+            border-radius: 8px 8px 0 0;
         }
 
         .modal-body {
-            padding: 20px;
+            padding: 24px;      /* 3x8 = 24px */
             font-size: 12px;
-            line-height: 1.6;
+            line-height: 16px;  /* 2x8 = 16px */
             color: #595959;
         }
 
         .modal-footer {
             background: #f4f4f4;
-            padding: 10px;
+            padding: 16px;      /* 2x8 = 16px */
             text-align: right;
             border-top: 1px solid #d5d5d5;
         }
 
-        /* MODAL - APROVAÇÃO EM LOTE */
+        /* MODAL APROVAÇÃO EM LOTE */
         .batch-modal-overlay {
             display: none;
             position: fixed;
@@ -274,23 +282,21 @@
         }
 
         .batch-modal-overlay .ui-dialog {
-            width: 504px;
+            width: 504px;       /* 63x8 = 504px */
             background: #585858;
-            padding: 5px;
-            border-radius: 5px;
+            padding: 8px;       /* 1x8 = 8px */
+            border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .batch-modal-overlay .ui-dialog-titlebar {
-            position: relative;
-            height: 36px;
+            height: 40px;       /* 5x8 = 40px */
             background: linear-gradient(to bottom, #ffffff 0%, #e6e6e6 100%);
             border-bottom: 1px solid #cdcdcd;
-            border-radius: 0 !important;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 10px;
+            padding: 0 16px;    /* 2x8 = 16px */
         }
 
         .batch-modal-overlay .ui-dialog-title {
@@ -304,24 +310,24 @@
             font-weight: bold;
             color: #333;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 16px;
         }
 
         .batch-modal-overlay .ui-dialog-content {
             background-color: #FAFAFA;
-            padding: 10px 12px;
+            padding: 16px;      /* 2x8 = 16px */
         }
 
         .batch-modal-overlay .ineerContent {
             border: 1px solid #cdcdcd;
-            border-radius: 3px;
+            border-radius: 8px;
             background: #fff;
             overflow: hidden;
         }
 
         .batch-modal-overlay .headerLote {
             background-color: #efefef;
-            padding: 8px 10px;
+            padding: 8px 16px;  /* 1x8 e 2x8 */
             border-bottom: 1px solid #cdcdcd;
             font-size: 12px;
             color: #595959;
@@ -334,7 +340,7 @@
         }
 
         .batch-modal-overlay .bodyLoteItem {
-            padding: 7px 10px;
+            padding: 8px 16px;  /* 1x8 e 2x8 */
             font-size: 11px;
             color: #555;
             display: flex;
@@ -354,8 +360,8 @@
 
         .batch-modal-overlay .bodyLoteItemImage {
             display: inline-block;
-            width: 16px;
-            height: 16px;
+            width: 16px;       /* 2x8 = 16px */
+            height: 16px;      /* 2x8 = 16px */
             background-color: #4ba3d7;
             color: #fff;
             border-radius: 50%;
@@ -365,15 +371,15 @@
             font-family: serif;
             font-weight: bold;
             font-style: italic;
-            margin-right: 8px;
+            margin-right: 8px; /* 1x8 = 8px */
             flex-shrink: 0;
         }
 
         .batch-modal-overlay .botoesLote {
             display: flex;
             justify-content: flex-end;
-            gap: 10px;
-            margin: 16px 0 5px 0;
+            gap: 16px;         /* 2x8 = 16px */
+            margin: 24px 0 8px 0; /* 3x8, 1x8 */
         }
 
         .batch-modal-overlay .btn {
@@ -383,37 +389,27 @@
             white-space: nowrap;
             cursor: pointer;
             font-family: Arial, Helvetica, sans-serif;
-            line-height: 12px;
+            line-height: 16px;
             display: inline-block;
-            max-height: 29px;
-            border-radius: 2px;
+            border-radius: 4px;
             border: 1px solid;
             transition: opacity 0.2s;
+            padding: 8px 24px; /* 1x8 e 3x8 */
         }
 
         .batch-modal-overlay .greenB {
-            padding: 7px 20px 8px 20px !important;
             background: linear-gradient(to bottom, #aed05c 0%, #8dbb3c 100%);
             border-color: #7ca82a;
             color: #fff;
         }
 
         .batch-modal-overlay .redB {
-            padding: 7px 18px 8px 18px;
             background: linear-gradient(to bottom, #d56a5e 0%, #b34a3e 100%);
             border-color: #9a3b30;
             color: #fff;
         }
 
-        .batch-modal-overlay .btn:hover {
-            opacity: 0.9;
-        }
-
-        .batch-modal-overlay .btn:active {
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        /* MODAL - DOCUMENTOS PRÓXIMOS DO VENCIMENTO (EXPURGO) */
+        /* MODAL EXPURGO */
         .expurgo-modal-overlay {
             display: none;
             position: fixed;
@@ -428,22 +424,21 @@
         }
 
         .expurgo-modal-overlay .ui-dialog {
-            width: 1200px;
+            width: 1200px;      /* 150x8 = 1200px */
             background: #585858;
-            padding: 5px;
-            border-radius: 5px;
+            padding: 8px;
+            border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .expurgo-modal-overlay .ui-dialog-titlebar {
-            position: relative;
-            height: 36px;
+            height: 40px;
             background: linear-gradient(to bottom, #ffffff 0%, #e6e6e6 100%);
             border-bottom: 1px solid #cdcdcd;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 10px;
+            padding: 0 16px;
         }
 
         .expurgo-modal-overlay .ui-dialog-title {
@@ -453,42 +448,26 @@
         }
 
         .expurgo-modal-overlay .wijmo-wijdialog-captionbutton {
-            height: 18px;
-            padding: 1px;
-            width: 19px;
-            display: inline-block;
-            outline: none;
-            text-align: left;
+            height: 24px;
+            width: 24px;
             cursor: pointer;
-        }
-
-        .expurgo-modal-overlay .wijmo-wijdialog-captionbutton .ui-icon {
-            margin: 1px;
-            width: 16px;
-            height: 16px;
-            display: block;
-            text-indent: -99999px;
-            overflow: hidden;
-            background-repeat: no-repeat;
-            background-image: url('https://docz.sosdocs.com.br/Docz/app/images/jquery_ui/ui-icons_222222_256x240.png');
-            background-position: -80px -128px;
         }
 
         .expurgo-modal-overlay .ui-dialog-content {
             background-color: #FAFAFA;
-            padding: 10px 12px;
+            padding: 16px;
         }
 
         .expurgo-modal-overlay .ineerContent {
             border: 1px solid #cdcdcd;
-            border-radius: 3px;
+            border-radius: 8px;
             background: #fff;
             overflow: hidden;
         }
 
         .expurgo-modal-overlay .headerLote {
             background-color: #efefef;
-            padding: 10px;
+            padding: 12px 16px;
             border-bottom: 1px solid #cdcdcd;
             font-size: 12px;
             color: #595959;
@@ -498,7 +477,6 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 11px;
-            table-layout: fixed;
         }
 
         .expurgo-modal-overlay .doc-table th {
@@ -508,42 +486,12 @@
             border-bottom: 1px solid #ddd;
             color: #333;
             font-weight: bold;
-            white-space: nowrap;
         }
 
         .expurgo-modal-overlay .doc-table td {
             padding: 8px;
             border-bottom: 1px solid #f2f2f2;
             color: #555;
-            white-space: nowrap;
-        }
-
-        .expurgo-modal-overlay .col-objeto {
-            width: 180px;
-        }
-
-        .expurgo-modal-overlay .col-localizacao {
-            width: 190px;
-        }
-
-        .expurgo-modal-overlay .col-status {
-            width: 90px;
-        }
-
-        .expurgo-modal-overlay .col-classificacao {
-            width: 230px;
-        }
-
-        .expurgo-modal-overlay .col-destinacao {
-            width: 140px;
-        }
-
-        .expurgo-modal-overlay .col-dias {
-            width: 150px;
-        }
-
-        .expurgo-modal-overlay .doc-table tr:hover {
-            background-color: #f5faff;
         }
 
         .expurgo-modal-overlay .info-icon {
@@ -559,50 +507,28 @@
             font-family: serif;
             font-weight: bold;
             font-style: italic;
-            margin-right: 5px;
+            margin-right: 8px;
             vertical-align: middle;
         }
 
         .expurgo-modal-overlay .botoesLote {
             display: flex;
             justify-content: flex-end;
-            gap: 10px;
-            margin-top: 16px;
+            gap: 16px;
+            margin-top: 24px;
         }
 
         .expurgo-modal-overlay .btn {
             font-size: 10px;
             font-weight: bold;
             text-transform: uppercase;
-            white-space: nowrap;
             cursor: pointer;
-            font-family: Arial, Helvetica, sans-serif;
-            line-height: 12px;
-            display: inline-block;
-            max-height: 29px;
-            border-radius: 2px;
+            border-radius: 4px;
             border: 1px solid;
+            padding: 8px 24px;
         }
 
-        .expurgo-modal-overlay .greenB {
-            padding: 7px 20px 8px 20px !important;
-            background: linear-gradient(to bottom, #aed05c 0%, #8dbb3c 100%);
-            border-color: #7ca82a;
-            color: #fff;
-        }
-
-        .expurgo-modal-overlay .redB {
-            padding: 7px 18px 8px 18px;
-            background: linear-gradient(to bottom, #d56a5e 0%, #b34a3e 100%);
-            border-color: #9a3b30;
-            color: #fff;
-        }
-
-        .expurgo-modal-overlay .btn:active {
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        /* MODAL - RELEASE NOTES */
+        /* MODAL RELEASE NOTES */
         .release-modal-overlay {
             display: none;
             position: fixed;
@@ -617,26 +543,25 @@
         }
 
         .release-modal-overlay .ui-dialog {
-            width: 896px;
+            width: 896px;       /* 112x8 = 896px */
             background-color: #585858;
-            padding: 4px;
-            border-radius: 3px;
+            padding: 8px;
+            border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            position: relative;
         }
 
         .release-modal-overlay .ui-dialog-inner-border {
             background-color: #ffffff;
             border: 1px solid #dcdcdc;
-            border-radius: 1px;
+            border-radius: 4px;
             display: flex;
             flex-direction: column;
         }
 
         .release-modal-overlay .ui-dialog-titlebar {
             background: #f6f6f6 linear-gradient(to bottom, #fcfcfc 0%, #e9e9e9 100%);
-            height: 35px;
-            padding: 0 10px;
+            height: 40px;
+            padding: 0 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -644,27 +569,29 @@
         }
 
         .release-modal-overlay .ui-dialog-title {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
             color: #444;
         }
 
         .release-modal-overlay .ui-close-btn {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             color: #444;
-            padding: 0 5px;
-            line-height: 1;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .release-modal-overlay .ui-dialog-content {
             background-color: #ffffff;
             height: 560px;
-            padding: 25px 35px;
+            padding: 24px 32px;
             display: flex;
             flex-direction: column;
-            position: relative;
         }
 
         .release-modal-overlay .release-container {
@@ -675,8 +602,8 @@
 
         .release-modal-overlay .release-header {
             border-bottom: 1px solid #585858;
-            padding-bottom: 10px;
-            margin-bottom: 25px;
+            padding-bottom: 8px;
+            margin-bottom: 24px;
         }
 
         .release-modal-overlay .version-label {
@@ -686,7 +613,7 @@
         }
 
         .release-modal-overlay .release-item {
-            margin-bottom: 25px;
+            margin-bottom: 24px;
         }
 
         .release-modal-overlay .release-item h3 {
@@ -697,25 +624,16 @@
         }
 
         .release-modal-overlay .release-item p {
-            font-size: 13px;
+            font-size: 12px;
             color: #555;
-            line-height: 1.5;
-            margin-bottom: 5px;
-        }
-
-        .release-modal-overlay .release-item .benefit-text {
-            display: block;
-            font-size: 13px;
-            color: #555;
-            padding-top: 5px;
+            line-height: 16px;
+            margin-bottom: 4px;
         }
 
         .release-modal-overlay .ui-dialog-footer {
-            margin-top: auto;
+            margin-top: 16px;
             border-top: 1px solid #eee;
-            padding-top: 15px;
-            display: flex;
-            align-items: center;
+            padding-top: 16px;
         }
 
         .release-modal-overlay .form-row {
@@ -724,49 +642,22 @@
         }
 
         .release-modal-overlay #idReleaseNote {
-            width: 17px;
-            height: 17px;
-            border: 1px solid #b5b5b5;
-            appearance: none;
-            -webkit-appearance: none;
-            background: #fff;
-            margin-right: 10px;
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .release-modal-overlay #idReleaseNote:checked::after {
-            content: 'x';
-            font-size: 12px;
-            color: #444;
-            font-weight: bold;
         }
 
         .release-modal-overlay .form-row label {
             font-size: 12px;
             color: #555;
             cursor: pointer;
-            user-select: none;
-        }
-
-        .release-modal-overlay .ui-resizable-se {
-            position: absolute;
-            right: 6px;
-            bottom: 6px;
-            width: 14px;
-            height: 14px;
-            background-image: url("https://docz.sosdocs.com.br/Docz/app/images/jquery_ui/ui-icons_222222_256x240.png");
-            background-position: -80px -224px;
-            opacity: 0.35;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- WIDGET PRINCIPAL - CENTRAL DE NOTIFICAÇÕES -->
     <div class="widget">
         <div class="title">
             <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/info.png" alt="" class="titleIcon">
@@ -774,87 +665,85 @@
             <span id="badge-count" class="notif-badge">(3 novas)</span>
         </div>
 
-        <div class="body" style="display: block;">
-
-            <!-- NOTIFICAÇÃO 1 - Lotes Aguardando Aprovação -->
-            <div class="formRow" onclick="openBatchApprovalModal(this);">
-                <div class="notif-item">
-                    <div class="notif-icon">
-                        <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/alert.png" width="16">
+        <div class="body">
+            <div class="section-divider">NÃO LIDAS</div>
+            <div id="container-nao-lidas">
+                <!-- NOTIFICAÇÃO 1 -->
+                <div class="formRow" id="notif-1" data-id="1">
+                    <div class="notif-item" onclick="openBatchApprovalModal(this.closest('.formRow'));">
+                        <div class="notif-icon">
+                            <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/alert.png" width="16">
+                        </div>
+                        <div class="notif-content">
+                            <span class="notif-title">Lotes Aguardando Aprovação</span>
+                            <span class="notif-desc">Pendências detectadas no login do perfil Cliente.</span>
+                        </div>
+                        <div class="notif-date">10/03/2026 10:00</div>
+                        <div class="notif-actions" onclick="event.stopPropagation();">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor:pointer" onclick="expandNotif(this.closest('.formRow'), 'Lotes Aguardando Aprovação', 'Detalhes dos lotes pendentes de aprovação.')">
+                                <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
+                            </svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor:pointer" onclick="marcarComoLida('notif-1')">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#595959"/>
+                            </svg>
+                        </div>
                     </div>
-                    <div class="notif-content">
-                        <span class="notif-title">Lotes Aguardando Aprovação</span>
-                        <span class="notif-desc">Pendências detectadas no login do perfil Cliente.</span>
-                    </div>
-                    <div class="notif-date">10/03/2026 10:00</div>
-                    <div class="notif-actions" onclick="event.stopPropagation();">
-                        <svg title="Expandir Detalhes" onclick="this.closest('.formRow').click();"
-                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
-                            <path fill="#595959"
-                                d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" />
-                        </svg>
-                        <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/check.png"
-                            title="Confirmar Leitura e Remover" width="14"
-                            onclick="archiveNotif(this.closest('.formRow'));">
-                    </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="clear"></div>
+
+                <!-- NOTIFICAÇÃO 2 -->
+                <div class="formRow" id="notif-2" data-id="2">
+                    <div class="notif-item" onclick="openExpurgoModal(this.closest('.formRow'));">
+                        <div class="notif-icon">
+                            <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/files.png" width="16">
+                        </div>
+                        <div class="notif-content">
+                            <span class="notif-title">Prazo de Expurgo Próximo</span>
+                            <span class="notif-desc">Alerta baseado na temporalidade dos documentos.</span>
+                        </div>
+                        <div class="notif-date">10/03/2026 09:15</div>
+                        <div class="notif-actions" onclick="event.stopPropagation();">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor:pointer" onclick="expandNotif(this.closest('.formRow'), 'Prazo de Expurgo Próximo', 'Documentos com vencimento próximo.')">
+                                <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
+                            </svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor:pointer" onclick="marcarComoLida('notif-2')">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#595959"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <!-- NOTIFICAÇÃO 3 -->
+                <div class="formRow" id="notif-3" data-id="3">
+                    <div class="notif-item" onclick="openReleaseModal(this.closest('.formRow'));">
+                        <div class="notif-icon">
+                            <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/adminUser.png" width="16">
+                        </div>
+                        <div class="notif-content">
+                            <span class="notif-title">Release Notes - v3.5.0</span>
+                            <span class="notif-desc">Novas funcionalidades e atualizações do sistema DocZ.</span>
+                        </div>
+                        <div class="notif-date">09/03/2026 14:00</div>
+                        <div class="notif-actions" onclick="event.stopPropagation();">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor:pointer" onclick="expandNotif(this.closest('.formRow'), 'Release Notes v3.5.0', 'Novas funcionalidades implementadas.')">
+                                <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
+                            </svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="cursor:pointer" onclick="marcarComoLida('notif-3')">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#595959"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
             </div>
 
-            <!-- NOTIFICAÇÃO 2 - Prazo de Expurgo Próximo -->
-            <div class="formRow" onclick="openExpurgoModal(this);">
-                <div class="notif-item">
-                    <div class="notif-icon">
-                        <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/files.png" width="16">
-                    </div>
-                    <div class="notif-content">
-                        <span class="notif-title">Prazo de Expurgo Próximo</span>
-                        <span class="notif-desc">Alerta baseado na temporalidade dos documentos.</span>
-                    </div>
-                    <div class="notif-date">10/03/2026 09:15</div>
-                    <div class="notif-actions" onclick="event.stopPropagation();">
-                        <svg title="Expandir Detalhes" onclick="this.closest('.formRow').click();"
-                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
-                            <path fill="#595959"
-                                d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" />
-                        </svg>
-                        <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/check.png"
-                            title="Confirmar Leitura e Remover" width="14"
-                            onclick="archiveNotif(this.closest('.formRow'));">
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-
-            <!-- NOTIFICAÇÃO 3 - Release Notes -->
-            <div class="formRow" onclick="openReleaseModal(this);">
-                <div class="notif-item">
-                    <div class="notif-icon">
-                        <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/adminUser.png" width="16">
-                    </div>
-                    <div class="notif-content">
-                        <span class="notif-title">Release Notes - v3.5.0</span>
-                        <span class="notif-desc">Novas funcionalidades e atualizações do sistema DocZ.</span>
-                    </div>
-                    <div class="notif-date">09/03/2026 14:00</div>
-                    <div class="notif-actions" onclick="event.stopPropagation();">
-                        <svg title="Expandir Detalhes" onclick="this.closest('.formRow').click();"
-                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
-                            <path fill="#595959"
-                                d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" />
-                        </svg>
-                        <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/check.png"
-                            title="Confirmar Leitura e Remover" width="14"
-                            onclick="archiveNotif(this.closest('.formRow'));">
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-
+            <div class="section-divider">LIDAS</div>
+            <div id="container-lidas"></div>
         </div>
     </div>
 
-    <!-- MODAL SIMPLES (para expansão de detalhes) -->
+    <!-- MODAL SIMPLES -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
             <div class="modal-header"><span id="mTitle"></span></div>
@@ -865,115 +754,56 @@
         </div>
     </div>
 
-    <!-- MODAL DE APROVAÇÃO EM LOTE -->
+    <!-- MODAL BATCH -->
     <div class="batch-modal-overlay" id="batchModalOverlay">
         <div class="ui-dialog">
             <div class="ui-dialog-titlebar">
-                <span class="ui-dialog-title">Listagem de Documentos Próximos do Vencimento</span>
-                <a href="#" class="close-btn" onclick="fechar()">×</a>
+                <span class="ui-dialog-title">Listagem de Lotes Aguardando Aprovação</span>
+                <a href="#" class="close-btn" onclick="fecharBatchModal()">×</a>
             </div>
-
             <div class="ui-dialog-content">
                 <div class="ineerContent">
-                    <div class="headerLote">
-                        <p>Documentos com prazo de guarda próximo do vencimento. Clique para analisar de forma
-                            detalhada:</p>
-                    </div>
+                    <div class="headerLote"><p>Selecione um lote para avaliar:</p></div>
                     <ul class="bodyLoteLista" id="lista">
-                        <li class="bodyLoteItem" onclick="selecionar(this)"><span class="bodyLoteItemImage">i</span>Lote
-                            2868 - AGUARDANDO APROVAÇÃO</li>
-                        <li class="bodyLoteItem" onclick="selecionar(this)"><span class="bodyLoteItemImage">i</span>Lote
-                            2871 - AGUARDANDO APROVAÇÃO</li>
-                        <li class="bodyLoteItem" onclick="selecionar(this)"><span class="bodyLoteItemImage">i</span>Lote
-                            2882 - AGUARDANDO APROVAÇÃO</li>
-                        <li class="bodyLoteItem" onclick="selecionar(this)"><span class="bodyLoteItemImage">i</span>Lote
-                            2898 - AGUARDANDO APROVAÇÃO</li>
-                        <li class="bodyLoteItem" onclick="selecionar(this)"><span class="bodyLoteItemImage">i</span>Lote
-                            2899 - AGUARDANDO APROVAÇÃO</li>
-                        <li class="bodyLoteItem" onclick="selecionar(this)"><span class="bodyLoteItemImage">i</span>Lote
-                            2919 - AGUARDANDO APROVAÇÃO</li>
+                        <li class="bodyLoteItem" onclick="selecionar(this)"><span class="bodyLoteItemImage">i</span>Lote 2868 - AGUARDANDO APROVAÇÃO</li>
+                        <li class="bodyLoteItem" onclick="selecionar(this)"><span class="bodyLoteItemImage">i</span>Lote 2871 - AGUARDANDO APROVAÇÃO</li>
+                        <li class="bodyLoteItem" onclick="selecionar(this)"><span class="bodyLoteItemImage">i</span>Lote 2882 - AGUARDANDO APROVAÇÃO</li>
+                        <li class="bodyLoteItem" onclick="selecionar(this)"><span class="bodyLoteItemImage">i</span>Lote 2898 - AGUARDANDO APROVAÇÃO</li>
+                        <li class="bodyLoteItem" onclick="selecionar(this)"><span class="bodyLoteItemImage">i</span>Lote 2899 - AGUARDANDO APROVAÇÃO</li>
+                        <li class="bodyLoteItem" onclick="selecionar(this)"><span class="bodyLoteItemImage">i</span>Lote 2919 - AGUARDANDO APROVAÇÃO</li>
                     </ul>
                 </div>
-
                 <div class="botoesLote">
                     <input type="button" value="Avaliar" class="btn greenB" onclick="avaliar()">
-                    <input type="button" value="Cancelar" class="btn redB" onclick="fechar()">
+                    <input type="button" value="Cancelar" class="btn redB" onclick="fecharBatchModal()">
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL DE EXPURGO (DOCUMENTOS PRÓXIMOS DO VENCIMENTO) -->
+    <!-- MODAL EXPURGO -->
     <div class="expurgo-modal-overlay" id="expurgoModalOverlay">
         <div class="ui-dialog">
-            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix ui-draggable-handle">
-                <span class="ui-dialog-title">Listagem de Documentos Próximos do Vencimento</span>
-                <a href="#" class="wijmo-wijdialog-titlebar-close ui-corner-all wijmo-wijdialog-captionbutton"
-                    role="button" onclick="closeExpurgoModal(); return false;">
-                    <span class="ui-icon ui-icon-close">close</span>
-                </a>
+            <div class="ui-dialog-titlebar">
+                <span class="ui-dialog-title">Documentos Próximos do Vencimento</span>
+                <div class="wijmo-wijdialog-captionbutton" onclick="closeExpurgoModal()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" fill="#333"/>
+                    </svg>
+                </div>
             </div>
-
-            <div class="ui-dialog-content ui-widget-content">
+            <div class="ui-dialog-content">
                 <div class="ineerContent">
-                    <div class="headerLote">
-                        <p>Documentos com prazo de guarda próximo do vencimento. Clique para analisar de forma
-                            detalhada:</p>
-                    </div>
-
+                    <div class="headerLote"><p>Documentos com prazo de guarda próximo do vencimento:</p></div>
                     <table class="doc-table">
-                        <colgroup>
-                            <col style="width:30px">
-                            <col style="width:180px">
-                            <col style="width:190px">
-                            <col style="width:90px">
-                            <col style="width:230px">
-                            <col style="width:140px">
-                            <col style="width:150px">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th width="30"><input type="checkbox"></th>
-                                <th class="col-objeto">Objeto</th>
-                                <th class="col-localizacao">Localização</th>
-                                <th class="col-status">Status</th>
-                                <th class="col-classificacao">Classificação</th>
-                                <th class="col-destinacao">Data Destinação</th>
-                                <th class="col-dias">Dias até o Vencimento</th>
-                            </tr>
-                        </thead>
+                        <thead><tr><th><input type="checkbox"></th><th>Objeto</th><th>Localização</th><th>Status</th><th>Classificação</th><th>Destinação</th><th>Dias</th></tr></thead>
                         <tbody>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td class="col-objeto"><span class="info-icon"></span> DC00159G20005384SOS</td>
-                                <td class="col-localizacao">CX00251G140000030SOS</td>
-                                <td class="col-status">Arquivado</td>
-                                <td class="col-classificacao">211 - AUTORIZAÇÃO DE PESQUISA</td>
-                                <td class="col-destinacao">31/12/2025</td>
-                                <td class="col-dias">A vencer em 5 dias</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td class="col-objeto"><span class="info-icon"></span> DC00159G10006934SOS</td>
-                                <td class="col-localizacao">CX00251G140000031SOS</td>
-                                <td class="col-status">Emprestado</td>
-                                <td class="col-classificacao">213 - REGISTRO DE LICENCIAMENTO</td>
-                                <td class="col-destinacao">15/06/2026</td>
-                                <td class="col-dias">A vencer em 10 dias</td>
-                            </tr>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td class="col-objeto"><span class="info-icon"></span> DC00159G10006937SOS</td>
-                                <td class="col-localizacao">CX00251G140000032SOS</td>
-                                <td class="col-status">Arquivado</td>
-                                <td class="col-classificacao">211 - RENOVAÇÃO DE PESQUISA</td>
-                                <td class="col-destinacao">20/08/2026</td>
-                                <td class="col-dias">A vencer em 15 dias</td>
-                            </tr>
+                            <tr><td><input type="checkbox"></td><td><span class="info-icon">i</span>DC00159G20005384SOS</td><td>CX00251G140000030SOS</td><td>Arquivado</td><td>211 - AUTORIZAÇÃO</td><td>31/12/2025</td><td>A vencer em 5 dias</td></tr>
+                            <tr><td><input type="checkbox"></td><td><span class="info-icon">i</span>DC00159G10006934SOS</td><td>CX00251G140000031SOS</td><td>Emprestado</td><td>213 - LICENCIAMENTO</td><td>15/06/2026</td><td>A vencer em 10 dias</td></tr>
+                            <tr><td><input type="checkbox"></td><td><span class="info-icon">i</span>DC00159G10006937SOS</td><td>CX00251G140000032SOS</td><td>Arquivado</td><td>211 - RENOVAÇÃO</td><td>20/08/2026</td><td>A vencer em 15 dias</td></tr>
                         </tbody>
                     </table>
                 </div>
-
                 <div class="botoesLote">
                     <input type="button" value="Verificar" class="btn greenB" onclick="closeExpurgoModal()">
                     <input type="button" value="Cancelar" class="btn redB" onclick="closeExpurgoModal()">
@@ -982,66 +812,38 @@
         </div>
     </div>
 
-    <!-- MODAL DE RELEASE NOTES -->
+    <!-- MODAL RELEASE NOTES -->
     <div class="release-modal-overlay" id="releaseModalOverlay">
         <div class="ui-dialog">
             <div class="ui-dialog-inner-border">
-
                 <div class="ui-dialog-titlebar">
-                    <span class="ui-dialog-title">Release Notes - O que há de novo?</span>
-                    <span class="ui-close-btn" onclick="closeReleaseModal()">×</span>
-                </div>
-
-                <div class="ui-dialog-content">
-
-                    <div class="release-container">
-                        <div class="release-header">
-                            <p class="version-label">Versão: Docz v:2026.02.11.19.1.5.15.3</p>
-                        </div>
-
-                        <div class="release-item">
-                            <h3>1) Nova coluna “Arquivos” na grid de resultados da Pesquisa</h3>
-                            <p>Na tela de resultados da pesquisa do DocZ, ao lado da coluna “Páginas”, foi criada a nova
-                                coluna “Arquivos”, que exibe quantos arquivos o objeto possui.</p>
-                            <span class="benefit-text">Benefício: facilita a visualização do total de arquivos do objeto
-                                diretamente na listagem, sem necessidade de abrir o item.</span>
-                        </div>
-
-                        <div class="release-item">
-                            <h3>2) Criação de espelho personalizado – Projeto PRF</h3>
-                            <p>Foi criado um espelho personalizado para o projeto PRF, atendendo às necessidades
-                                específicas do cliente no formato e apresentação das informações.</p>
-                        </div>
-
-                        <div class="release-item">
-                            <h3>3) Ajustes nas APIs de integração (Pesquisa via SmartDocs)</h3>
-                            <p>Foram realizados ajustes nas APIs de integração utilizadas para pesquisa de objetos do
-                                DocZ através do SmartDocs, com foco em estabilidade e compatibilidade do fluxo de
-                                consulta.</p>
-                        </div>
+                    <span class="ui-dialog-title">Release Notes</span>
+                    <div class="ui-close-btn" onclick="closeReleaseModal()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" fill="#444"/>
+                        </svg>
                     </div>
-
+                </div>
+                <div class="ui-dialog-content">
+                    <div class="release-container">
+                        <div class="release-header"><span class="version-label">Versão: Docz v3.5.0</span></div>
+                        <div class="release-item"><h3>Nova coluna "Arquivos"</h3><p>Exibe quantidade de arquivos por objeto diretamente na listagem.</p></div>
+                        <div class="release-item"><h3>Espelho personalizado PRF</h3><p>Atendimento a necessidades específicas do cliente.</p></div>
+                        <div class="release-item"><h3>Ajustes nas APIs</h3><p>Melhorias de estabilidade e compatibilidade.</p></div>
+                    </div>
                     <div class="ui-dialog-footer">
                         <div class="form-row">
                             <input type="checkbox" id="idReleaseNote">
                             <label for="idReleaseNote">Sempre exibir</label>
                         </div>
                     </div>
-
                 </div>
             </div>
-
-            <div class="ui-resizable-se"></div>
         </div>
     </div>
 
     <script>
-        // Funções para o modal simples
-        function expandModal(row, title, body) {
-            if (row.classList.contains('new-notif')) {
-                row.classList.remove('new-notif');
-                updateBadge();
-            }
+        function expandNotif(row, title, body) {
             document.getElementById('mTitle').innerText = title;
             document.getElementById('mBody').innerHTML = body;
             document.getElementById('modalOverlay').style.display = 'flex';
@@ -1051,93 +853,122 @@
             document.getElementById('modalOverlay').style.display = 'none';
         }
 
-        // Função para arquivar notificação
-        function archiveNotif(row) {
-            row.classList.add('row-fade-out');
+        function marcarComoLida(id) {
+            const row = document.getElementById(id);
+            const containerNaoLidas = document.getElementById('container-nao-lidas');
+            const containerLidas = document.getElementById('container-lidas');
+            
+            if (!row || row.classList.contains('lida')) return;
+            
+            row.style.opacity = '0.5';
+            
             setTimeout(() => {
-                row.remove();
-                checkEmpty();
-                updateBadge();
+                row.classList.add('lida');
+                
+                const actionsDiv = row.querySelector('.notif-actions');
+                if (actionsDiv) {
+                    const expandSvg = actionsDiv.querySelector('svg:first-child');
+                    actionsDiv.innerHTML = '';
+                    if (expandSvg) actionsDiv.appendChild(expandSvg);
+                    
+                    const voltarSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                    voltarSvg.setAttribute("width", "16");
+                    voltarSvg.setAttribute("height", "16");
+                    voltarSvg.setAttribute("viewBox", "0 0 24 24");
+                    voltarSvg.setAttribute("fill", "none");
+                    voltarSvg.style.cursor = "pointer";
+                    voltarSvg.innerHTML = '<path d="M14 7v4h-7.17l2.59-2.59L8 7l-5 5 5 5 1.41-1.41L6.83 13H14c2.76 0 5-2.24 5-5h-2c0 1.66-1.34 3-3 3h-2V7h-2z" fill="#595959"/>';
+                    voltarSvg.onclick = (e) => {
+                        e.stopPropagation();
+                        marcarComoNaoLida(id);
+                    };
+                    actionsDiv.appendChild(voltarSvg);
+                }
+                
+                containerLidas.appendChild(row);
+                row.style.opacity = '1';
+                
+                const emptyMsgLidas = containerLidas.querySelector('.empty-message');
+                if (emptyMsgLidas) emptyMsgLidas.remove();
+                
+                updateBadgeCount();
+                
+                const naoLidasCount = containerNaoLidas.querySelectorAll('.formRow:not(.lida)').length;
+                if (naoLidasCount === 0 && !containerNaoLidas.querySelector('.empty-message')) {
+                    const emptyMsg = document.createElement('div');
+                    emptyMsg.className = 'empty-message';
+                    emptyMsg.innerText = 'Nenhuma notificação não lida.';
+                    containerNaoLidas.appendChild(emptyMsg);
+                }
             }, 200);
         }
-
-        // Verifica se há notificações
-        function checkEmpty() {
-            const container = document.querySelector('.body');
-            const rows = document.querySelectorAll('.formRow');
-            if (rows.length === 0) {
-                const emptyRow = document.createElement('div');
-                emptyRow.className = 'formRow no-notif';
-                emptyRow.innerHTML = `
-                    <div style="text-align: center; padding: 40px; color: #999; font-style: italic;">
-                        Todas as notificações foram lidas.
-                    </div>
-                    <div class="clear"></div>
-                `;
-                container.appendChild(emptyRow);
-            }
+        
+        function marcarComoNaoLida(id) {
+            const row = document.getElementById(id);
+            const containerNaoLidas = document.getElementById('container-nao-lidas');
+            const containerLidas = document.getElementById('container-lidas');
+            
+            if (!row) return;
+            
+            row.style.opacity = '0.5';
+            
+            setTimeout(() => {
+                row.classList.remove('lida');
+                
+                const actionsDiv = row.querySelector('.notif-actions');
+                if (actionsDiv) {
+                    const expandSvg = actionsDiv.querySelector('svg:first-child');
+                    actionsDiv.innerHTML = '';
+                    if (expandSvg) actionsDiv.appendChild(expandSvg);
+                    
+                    const checkSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                    checkSvg.setAttribute("width", "16");
+                    checkSvg.setAttribute("height", "16");
+                    checkSvg.setAttribute("viewBox", "0 0 24 24");
+                    checkSvg.setAttribute("fill", "none");
+                    checkSvg.style.cursor = "pointer";
+                    checkSvg.innerHTML = '<path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#595959"/>';
+                    checkSvg.onclick = (e) => {
+                        e.stopPropagation();
+                        marcarComoLida(id);
+                    };
+                    actionsDiv.appendChild(checkSvg);
+                }
+                
+                const emptyMsg = containerNaoLidas.querySelector('.empty-message');
+                if (emptyMsg) emptyMsg.remove();
+                
+                containerNaoLidas.insertBefore(row, containerNaoLidas.firstChild);
+                row.style.opacity = '1';
+                
+                updateBadgeCount();
+            }, 200);
         }
-
-        // Atualiza o contador de notificações novas (mantido apenas para exibição)
-        function updateBadge() {
-            // Mantemos o contador fixo em 3 para este exemplo
-            document.getElementById('badge-count').innerText = '(3 novas)';
+        
+        function updateBadgeCount() {
+            const containerNaoLidas = document.getElementById('container-nao-lidas');
+            const naoLidas = containerNaoLidas.querySelectorAll('.formRow:not(.lida)').length;
+            const badge = document.getElementById('badge-count');
+            badge.innerText = naoLidas === 0 ? '(0 novas)' : `(${naoLidas} novas)`;
         }
-
-        // Funções para o modal de expurgo
-        function openExpurgoModal(row) {
-            // Removida a lógica de remoção da classe new-notif
-            document.getElementById('expurgoModalOverlay').style.display = 'flex';
-        }
-
-        function closeExpurgoModal() {
-            document.getElementById('expurgoModalOverlay').style.display = 'none';
-        }
-
-        // Funções para o modal de aprovação em lote
-        function openBatchApprovalModal(row) {
-            // Removida a lógica de remoção da classe new-notif
-            document.getElementById('batchModalOverlay').style.display = 'flex';
-        }
-
-        function selecionar(el) {
-            document.querySelectorAll('#lista .bodyLoteItem').forEach(i => i.classList.remove('selected'));
-            el.classList.add('selected');
-        }
-
-        function avaliar() {
-            const sel = document.querySelector('#lista .bodyLoteItem.selected');
-            alert(sel ? "Avaliando " + sel.innerText.substring(1) : "Selecione um lote.");
-        }
-
-        function fechar() {
-            if (confirm("Deseja cancelar?")) document.getElementById('batchModalOverlay').style.display = 'none';
-        }
-
-        // Funções para o modal de Release Notes
-        function openReleaseModal(row) {
-            // Removida a lógica de remoção da classe new-notif
-            document.getElementById('releaseModalOverlay').style.display = 'flex';
-        }
-
-        function closeReleaseModal() {
-            document.getElementById('releaseModalOverlay').style.display = 'none';
-        }
-
-        // Inicialização
-        window.onload = () => {
-            updateBadge();
-        };
-
-        // Fecha modal ao clicar fora
+        
+        function openBatchApprovalModal(row) { document.getElementById('batchModalOverlay').style.display = 'flex'; }
+        function fecharBatchModal() { if (confirm("Deseja cancelar?")) document.getElementById('batchModalOverlay').style.display = 'none'; }
+        function selecionar(el) { document.querySelectorAll('#lista .bodyLoteItem').forEach(i => i.classList.remove('selected')); el.classList.add('selected'); }
+        function avaliar() { const sel = document.querySelector('#lista .bodyLoteItem.selected'); alert(sel ? "Avaliando " + sel.innerText : "Selecione um lote."); }
+        function openExpurgoModal(row) { document.getElementById('expurgoModalOverlay').style.display = 'flex'; }
+        function closeExpurgoModal() { document.getElementById('expurgoModalOverlay').style.display = 'none'; }
+        function openReleaseModal(row) { document.getElementById('releaseModalOverlay').style.display = 'flex'; }
+        function closeReleaseModal() { document.getElementById('releaseModalOverlay').style.display = 'none'; }
+        
+        window.onload = () => updateBadgeCount();
+        
         window.onclick = (e) => {
-            if (e.target == document.getElementById('modalOverlay')) closeModal();
-            if (e.target == document.getElementById('batchModalOverlay')) fechar();
-            if (e.target == document.getElementById('expurgoModalOverlay')) closeExpurgoModal();
-            if (e.target == document.getElementById('releaseModalOverlay')) closeReleaseModal();
+            if (e.target.classList.contains('modal-overlay')) {
+                document.querySelectorAll('.modal-overlay, .batch-modal-overlay, .expurgo-modal-overlay, .release-modal-overlay').forEach(modal => modal.style.display = 'none');
+            }
         };
     </script>
-
 </body>
 
 </html>
