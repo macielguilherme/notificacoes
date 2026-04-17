@@ -176,6 +176,9 @@
             font-weight: bold;
             font-size: 10px;
             border-bottom: 1px solid #ddd;
+            display: flex;
+    align-items: center;
+    justify-content: space-between;
         }
 
         .section-divider:not(:first-of-type) {
@@ -198,6 +201,19 @@
             font-weight: normal;
             padding: 12px 16px 12px 0;
         }
+
+        .refresh-icon {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.refresh-icon:hover {
+    opacity: 1;
+    transform: rotate(20deg);
+}
 
         /* BOTÕES */
         .uButton {
@@ -663,7 +679,7 @@
         </div>
 
         <div class="body">
-            <div class="section-divider">NÃO LIDAS</div>
+            <div class="section-divider">     NÃO LIDAS      <span class="refresh-icon" onclick="refreshNaoLidas()" title="Atualizar">         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"             xmlns="http://www.w3.org/2000/svg">             <path d="M17.65 6.35A7.95 7.95 0 0 0 12 4V1L7 6l5 5V7a5 5 0 1 1-5 5H5a7 7 0 1 0 12.65-5.65z"                 fill="#595959"/>         </svg>     </span> </div>
             <div id="container-nao-lidas">
                 <!-- NOTIFICAÇÃO 1 -->
                 <div class="formRow" id="notif-1" data-id="1">
@@ -921,6 +937,20 @@
                 }
             }, 200);
         }
+
+        function refreshNaoLidas() {
+    const container = document.getElementById('container-nao-lidas');
+
+    // exemplo simples: "recalcular / atualizar badge"
+    updateBadgeCount();
+
+    // feedback visual opcional
+    container.style.opacity = '0.5';
+
+    setTimeout(() => {
+        container.style.opacity = '1';
+    }, 200);
+}
         
         // Marcar como NÃO lida (move para NÃO LIDAS ou mantém lá)
         function marcarComoNaoLida(id) {
