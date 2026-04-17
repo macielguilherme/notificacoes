@@ -176,9 +176,6 @@
             font-weight: bold;
             font-size: 10px;
             border-bottom: 1px solid #ddd;
-            display: flex;
-    align-items: center;
-    justify-content: space-between;
         }
 
         .section-divider:not(:first-of-type) {
@@ -201,19 +198,6 @@
             font-weight: normal;
             padding: 12px 16px 12px 0;
         }
-
-        .refresh-icon {
-    cursor: pointer;
-    opacity: 0.6;
-    transition: 0.2s;
-    display: flex;
-    align-items: center;
-}
-
-.refresh-icon:hover {
-    opacity: 1;
-    transform: rotate(20deg);
-}
 
         /* BOTÕES */
         .uButton {
@@ -679,7 +663,7 @@
         </div>
 
         <div class="body">
-            <div class="section-divider">     NÃO LIDAS      <span class="refresh-icon" onclick="refreshNaoLidas()" title="Atualizar">         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"             xmlns="http://www.w3.org/2000/svg">             <path d="M17.65 6.35A7.95 7.95 0 0 0 12 4V1L7 6l5 5V7a5 5 0 1 1-5 5H5a7 7 0 1 0 12.65-5.65z"                 fill="#595959"/>         </svg>     </span> </div>
+            <div class="section-divider">NÃO LIDAS</div>
             <div id="container-nao-lidas">
                 <!-- NOTIFICAÇÃO 1 -->
                 <div class="formRow" id="notif-1" data-id="1">
@@ -693,28 +677,17 @@
                         </div>
                         <div class="notif-date">10/03/2026 10:00</div>
                         <div class="notif-actions" onclick="event.stopPropagation();">
-                            <!-- Expandir -->
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-     xmlns="http://www.w3.org/2000/svg"
-     onclick="expandNotif(this.closest('.formRow'), 'Lotes Aguardando Aprovação', 'Detalhes dos lotes pendentes de aprovação.')">
-
-    <title>Visualizar detalhes</title>
-
-    <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z"
-          fill="#595959"/>
-</svg>
-                            <!-- Marcar como lida (check) -->
-                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-     xmlns="http://www.w3.org/2000/svg"
-     onclick="marcarComoLida('notif-1')">
-
-    <title>Marcar como lida</title>
-
-    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
-          fill="#595959"/>
-</svg>
-                            
-                            
+                            <!-- Expandir detalhes -->
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="expandNotif(this.closest('.formRow'), 'Lotes Aguardando Aprovação', 'Detalhes dos lotes pendentes de aprovação.')">
+                                <title>Expandir detalhes</title>
+                                <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
+                            </svg>
+                            <!-- Marcar como lida (aparece apenas em NÃO LIDAS) -->
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="marcarComoLida('notif-1')" class="btn-marcar-lida">
+                                <title>Marcar como lida</title>
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#595959"/>
+                            </svg>
+                            <!-- O ícone "Manter como não lida" NÃO é exibido aqui -->
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -732,25 +705,14 @@
                         </div>
                         <div class="notif-date">10/03/2026 09:15</div>
                         <div class="notif-actions" onclick="event.stopPropagation();">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-     xmlns="http://www.w3.org/2000/svg"
-     onclick="expandNotif(this.closest('.formRow'), 'Prazo de Expurgo Próximo', 'Documentos com vencimento próximo.')">
-
-    <title>Visualizar detalhes do expurgo</title>
-
-    <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z"
-          fill="#595959"/>
-</svg>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-     xmlns="http://www.w3.org/2000/svg"
-     onclick="marcarComoLida('notif-2')">
-
-    <title>Marcar como lida</title>
-
-    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
-          fill="#595959"/>
-</svg>
-                            
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="expandNotif(this.closest('.formRow'), 'Prazo de Expurgo Próximo', 'Documentos com vencimento próximo.')">
+                                <title>Expandir detalhes</title>
+                                <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
+                            </svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="marcarComoLida('notif-2')" class="btn-marcar-lida">
+                                <title>Marcar como lida</title>
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#595959"/>
+                            </svg>
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -768,25 +730,14 @@
                         </div>
                         <div class="notif-date">09/03/2026 14:00</div>
                         <div class="notif-actions" onclick="event.stopPropagation();">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-     xmlns="http://www.w3.org/2000/svg"
-     onclick="expandNotif(this.closest('.formRow'), 'Release Notes v3.5.0', 'Novas funcionalidades implementadas.')">
-
-    <title>Visualizar release notes</title>
-
-    <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z"
-          fill="#595959"/>
-</svg>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-     xmlns="http://www.w3.org/2000/svg"
-     onclick="marcarComoLida('notif-3')">
-
-    <title>Marcar como lida</title>
-
-    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
-          fill="#595959"/>
-</svg>
-                            
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="expandNotif(this.closest('.formRow'), 'Release Notes v3.5.0', 'Novas funcionalidades implementadas.')">
+                                <title>Visualizar release notes</title>
+                                <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
+                            </svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="marcarComoLida('notif-3')" class="btn-marcar-lida">
+                                <title>Marcar como lida</title>
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#595959"/>
+                            </svg>
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -843,6 +794,7 @@
                 <span class="ui-dialog-title">Documentos Próximos do Vencimento</span>
                 <div class="wijmo-wijdialog-captionbutton" onclick="closeExpurgoModal()">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <title>Fechar modal</title>
                         <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" fill="#333"/>
                     </svg>
                 </div>
@@ -875,6 +827,7 @@
                     <span class="ui-dialog-title">Release Notes</span>
                     <div class="ui-close-btn" onclick="closeReleaseModal()">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <title>Fechar modal</title>
                             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" fill="#444"/>
                         </svg>
                     </div>
@@ -908,7 +861,7 @@
             document.getElementById('modalOverlay').style.display = 'none';
         }
 
-        // Marcar como lida (move para LIDAS)
+        // Marcar como lida (move para LIDAS, remove o botão "marcar como lida" e adiciona o botão "manter como não lida")
         function marcarComoLida(id) {
             const row = document.getElementById(id);
             const containerNaoLidas = document.getElementById('container-nao-lidas');
@@ -920,6 +873,35 @@
             
             setTimeout(() => {
                 row.classList.add('lida');
+                
+                // Remove o botão "Marcar como lida" se existir
+                const btnMarcarLida = row.querySelector('.btn-marcar-lida');
+                if (btnMarcarLida) btnMarcarLida.remove();
+                
+                // Adiciona o botão "Manter como não lida" (se ainda não existir)
+                const actionsDiv = row.querySelector('.notif-actions');
+                if (actionsDiv && !actionsDiv.querySelector('.btn-nao-lida')) {
+                    const svgNaoLida = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                    svgNaoLida.setAttribute("width", "16");
+                    svgNaoLida.setAttribute("height", "16");
+                    svgNaoLida.setAttribute("viewBox", "0 0 24 24");
+                    svgNaoLida.setAttribute("fill", "none");
+                    svgNaoLida.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+                    svgNaoLida.classList.add("btn-nao-lida");
+                    svgNaoLida.onclick = (function(r) { return function() { marcarComoNaoLida(r.id); }; })(row);
+                    
+                    const titleNaoLida = document.createElementNS("http://www.w3.org/2000/svg", "title");
+                    titleNaoLida.textContent = "Manter como não lida";
+                    svgNaoLida.appendChild(titleNaoLida);
+                    
+                    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    path.setAttribute("d", "M14 7v4h-7.17l2.59-2.59L8 7l-5 5 5 5 1.41-1.41L6.83 13H14c2.76 0 5-2.24 5-5h-2c0 1.66-1.34 3-3 3h-2V7h-2z");
+                    path.setAttribute("fill", "#595959");
+                    svgNaoLida.appendChild(path);
+                    
+                    actionsDiv.appendChild(svgNaoLida);
+                }
+                
                 containerLidas.appendChild(row);
                 row.style.opacity = '1';
                 
@@ -937,22 +919,8 @@
                 }
             }, 200);
         }
-
-        function refreshNaoLidas() {
-    const container = document.getElementById('container-nao-lidas');
-
-    // exemplo simples: "recalcular / atualizar badge"
-    updateBadgeCount();
-
-    // feedback visual opcional
-    container.style.opacity = '0.5';
-
-    setTimeout(() => {
-        container.style.opacity = '1';
-    }, 200);
-}
         
-        // Marcar como NÃO lida (move para NÃO LIDAS ou mantém lá)
+        // Marcar como NÃO lida (move de volta para NÃO LIDAS, remove o botão "manter como não lida" e adiciona o botão "marcar como lida")
         function marcarComoNaoLida(id) {
             const row = document.getElementById(id);
             const containerNaoLidas = document.getElementById('container-nao-lidas');
@@ -960,24 +928,40 @@
             
             if (!row) return;
             
-            // Se já está em NÃO LIDAS, apenas garante que não tem classe .lida e mantém contador
-            if (containerNaoLidas.contains(row)) {
-                if (row.classList.contains('lida')) {
-                    row.classList.remove('lida');
-                }
-                // Remove mensagem de vazio se existir
-                const emptyMsg = containerNaoLidas.querySelector('.empty-message');
-                if (emptyMsg) emptyMsg.remove();
-                updateBadgeCount();
-                return;
-            }
-            
-            // Se está em LIDAS, move de volta
             row.style.opacity = '0.5';
             
             setTimeout(() => {
                 row.classList.remove('lida');
                 
+                // Remove o botão "Manter como não lida"
+                const btnNaoLida = row.querySelector('.btn-nao-lida');
+                if (btnNaoLida) btnNaoLida.remove();
+                
+                // Adiciona o botão "Marcar como lida" (se ainda não existir)
+                const actionsDiv = row.querySelector('.notif-actions');
+                if (actionsDiv && !actionsDiv.querySelector('.btn-marcar-lida')) {
+                    const svgMarcarLida = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                    svgMarcarLida.setAttribute("width", "16");
+                    svgMarcarLida.setAttribute("height", "16");
+                    svgMarcarLida.setAttribute("viewBox", "0 0 24 24");
+                    svgMarcarLida.setAttribute("fill", "none");
+                    svgMarcarLida.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+                    svgMarcarLida.classList.add("btn-marcar-lida");
+                    svgMarcarLida.onclick = (function(r) { return function() { marcarComoLida(r.id); }; })(row);
+                    
+                    const titleMarcarLida = document.createElementNS("http://www.w3.org/2000/svg", "title");
+                    titleMarcarLida.textContent = "Marcar como lida";
+                    svgMarcarLida.appendChild(titleMarcarLida);
+                    
+                    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    path.setAttribute("d", "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z");
+                    path.setAttribute("fill", "#595959");
+                    svgMarcarLida.appendChild(path);
+                    
+                    actionsDiv.appendChild(svgMarcarLida);
+                }
+                
+                // Remove mensagem de vazio se existir
                 const emptyMsg = containerNaoLidas.querySelector('.empty-message');
                 if (emptyMsg) emptyMsg.remove();
                 
