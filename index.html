@@ -678,17 +678,27 @@
                         <div class="notif-date">10/03/2026 10:00</div>
                         <div class="notif-actions" onclick="event.stopPropagation();">
                             <!-- Expandir -->
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="expandNotif(this.closest('.formRow'), 'Lotes Aguardando Aprovação', 'Detalhes dos lotes pendentes de aprovação.')">
-                                <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
-                            </svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+     xmlns="http://www.w3.org/2000/svg"
+     onclick="expandNotif(this.closest('.formRow'), 'Lotes Aguardando Aprovação', 'Detalhes dos lotes pendentes de aprovação.')">
+
+    <title>Visualizar detalhes</title>
+
+    <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z"
+          fill="#595959"/>
+</svg>
                             <!-- Marcar como lida (check) -->
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="marcarComoLida('notif-1')">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#595959"/>
-                            </svg>
-                            <!-- Marcar como NÃO lida (voltar/refresh) -->
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="marcarComoNaoLida('notif-1')" title="Manter como não lida">
-                                <path d="M14 7v4h-7.17l2.59-2.59L8 7l-5 5 5 5 1.41-1.41L6.83 13H14c2.76 0 5-2.24 5-5h-2c0 1.66-1.34 3-3 3h-2V7h-2z" fill="#595959"/>
-                            </svg>
+                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+     xmlns="http://www.w3.org/2000/svg"
+     onclick="marcarComoLida('notif-1')">
+
+    <title>Marcar como lida</title>
+
+    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
+          fill="#595959"/>
+</svg>
+                            
+                            
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -706,15 +716,25 @@
                         </div>
                         <div class="notif-date">10/03/2026 09:15</div>
                         <div class="notif-actions" onclick="event.stopPropagation();">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="expandNotif(this.closest('.formRow'), 'Prazo de Expurgo Próximo', 'Documentos com vencimento próximo.')">
-                                <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
-                            </svg>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="marcarComoLida('notif-2')">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#595959"/>
-                            </svg>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="marcarComoNaoLida('notif-2')" title="Manter como não lida">
-                                <path d="M14 7v4h-7.17l2.59-2.59L8 7l-5 5 5 5 1.41-1.41L6.83 13H14c2.76 0 5-2.24 5-5h-2c0 1.66-1.34 3-3 3h-2V7h-2z" fill="#595959"/>
-                            </svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+     xmlns="http://www.w3.org/2000/svg"
+     onclick="expandNotif(this.closest('.formRow'), 'Prazo de Expurgo Próximo', 'Documentos com vencimento próximo.')">
+
+    <title>Visualizar detalhes do expurgo</title>
+
+    <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z"
+          fill="#595959"/>
+</svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+     xmlns="http://www.w3.org/2000/svg"
+     onclick="marcarComoLida('notif-2')">
+
+    <title>Marcar como lida</title>
+
+    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
+          fill="#595959"/>
+</svg>
+                            
                         </div>
                     </div>
                     <div class="clear"></div>
@@ -732,15 +752,25 @@
                         </div>
                         <div class="notif-date">09/03/2026 14:00</div>
                         <div class="notif-actions" onclick="event.stopPropagation();">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="expandNotif(this.closest('.formRow'), 'Release Notes v3.5.0', 'Novas funcionalidades implementadas.')">
-                                <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
-                            </svg>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="marcarComoLida('notif-3')">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#595959"/>
-                            </svg>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="marcarComoNaoLida('notif-3')" title="Manter como não lida">
-                                <path d="M14 7v4h-7.17l2.59-2.59L8 7l-5 5 5 5 1.41-1.41L6.83 13H14c2.76 0 5-2.24 5-5h-2c0 1.66-1.34 3-3 3h-2V7h-2z" fill="#595959"/>
-                            </svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+     xmlns="http://www.w3.org/2000/svg"
+     onclick="expandNotif(this.closest('.formRow'), 'Release Notes v3.5.0', 'Novas funcionalidades implementadas.')">
+
+    <title>Visualizar release notes</title>
+
+    <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z"
+          fill="#595959"/>
+</svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+     xmlns="http://www.w3.org/2000/svg"
+     onclick="marcarComoLida('notif-3')">
+
+    <title>Marcar como lida</title>
+
+    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"
+          fill="#595959"/>
+</svg>
+                            
                         </div>
                     </div>
                     <div class="clear"></div>
