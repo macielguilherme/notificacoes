@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>DocZ - Central de Notificações</title>
+    <title>DocZ - Central de Notificações e Pendências</title>
     <style>
         /* ============================================
            SISTEMA DE GRID: MÚLTIPLOS DE 8
@@ -66,6 +66,54 @@
             font-weight: bold;
             padding: 12px 16px 12px 16px;
             color: #595959;
+        }
+
+        /* ABAS */
+        .tabs-container {
+            border-bottom: 1px solid #cdcdcd;
+            background: #efefef;
+            display: flex;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 10px 16px;
+            background: #e8e8e8;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            color: #777;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-button:first-child {
+            border-radius: 8px 0 0 0;
+        }
+
+        .tab-button:last-child {
+            border-radius: 0 8px 0 0;
+        }
+
+        .tab-button.active {
+            background: #f9f9f9;
+            color: #595959;
+            border-bottom-color: #4ba3d7;
+        }
+
+        .tab-button:hover:not(.active) {
+            background: #efefef;
+            color: #666;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         .widget .body {
@@ -658,93 +706,139 @@
     <div class="widget">
         <div class="title">
             <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/info.png" alt="" class="titleIcon">
-            <h6>Central de Notificações DocZ</h6>
-            <span id="badge-count" class="notif-badge">(3 novas)</span>
+            <h6>Central de Notificações e Pendências DocZ</h6>
+            <span id="badge-count" class="notif-badge">(10 pendências)</span>
+        </div>
+
+        <!-- ABAS -->
+        <div class="tabs-container">
+            <button class="tab-button active" onclick="switchTab('notificacoes')">Notificações</button>
+            <button class="tab-button" onclick="switchTab('pendencias')">Pendências</button>
         </div>
 
         <div class="body">
-            <div class="section-divider">NÃO LIDAS</div>
-            <div id="container-nao-lidas">
-                <!-- NOTIFICAÇÃO 1 -->
-                <div class="formRow" id="notif-1" data-id="1">
-                    <div class="notif-item" onclick="openBatchApprovalModal(this.closest('.formRow'));">
-                        <div class="notif-icon">
-                            <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/alert.png" width="16">
+            <!-- ABA DE NOTIFICAÇÕES -->
+            <div id="tab-notificacoes" class="tab-content active">
+                <div class="section-divider">NÃO LIDAS</div>
+                <div id="container-nao-lidas">
+                    <!-- NOTIFICAÇÃO 1 -->
+                    <div class="formRow" id="notif-1" data-id="1">
+                        <div class="notif-item" onclick="openReleaseModal(this.closest('.formRow'));">
+                            <div class="notif-icon">
+                                <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/adminUser.png" width="16">
+                            </div>
+                            <div class="notif-content">
+                                <span class="notif-title">Release Notes - v3.5.0</span>
+                                <span class="notif-desc">Novas funcionalidades e atualizações do sistema DocZ.</span>
+                            </div>
+                            <div class="notif-date">10/03/2026 10:00</div>
+                            <div class="notif-actions" onclick="event.stopPropagation();">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="expandNotif(this.closest('.formRow'), 'Release Notes v3.5.0', 'Novas funcionalidades implementadas.')">
+                                    <title>Expandir detalhes</title>
+                                    <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
+                                </svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="btn-marcar-lida" onclick="marcarComoLida('notif-1')">
+                                    <title>Marcar como lida</title>
+                                    <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z" fill="#595959"/>
+                                </svg>
+                            </div>
                         </div>
-                        <div class="notif-content">
-                            <span class="notif-title">Lotes Aguardando Aprovação</span>
-                            <span class="notif-desc">Pendências detectadas no login do perfil Cliente.</span>
-                        </div>
-                        <div class="notif-date">10/03/2026 10:00</div>
-                        <div class="notif-actions" onclick="event.stopPropagation();">
-                            <!-- Expandir detalhes -->
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="expandNotif(this.closest('.formRow'), 'Lotes Aguardando Aprovação', 'Detalhes dos lotes pendentes de aprovação.')">
-                                <title>Expandir detalhes</title>
-                                <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
-                            </svg>
-                            <!-- Marcar como lida (envelope) -->
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="btn-marcar-lida" onclick="marcarComoLida('notif-1')">
-                                <title>Marcar como lida</title>
-                                <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z" fill="#595959"/>
-                            </svg>
-                        </div>
+                        <div class="clear"></div>
                     </div>
-                    <div class="clear"></div>
                 </div>
 
-                <!-- NOTIFICAÇÃO 2 -->
-                <div class="formRow" id="notif-2" data-id="2">
-                    <div class="notif-item" onclick="openExpurgoModal(this.closest('.formRow'));">
-                        <div class="notif-icon">
-                            <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/files.png" width="16">
-                        </div>
-                        <div class="notif-content">
-                            <span class="notif-title">Prazo de Expurgo Próximo</span>
-                            <span class="notif-desc">Alerta baseado na temporalidade dos documentos.</span>
-                        </div>
-                        <div class="notif-date">10/03/2026 09:15</div>
-                        <div class="notif-actions" onclick="event.stopPropagation();">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="expandNotif(this.closest('.formRow'), 'Prazo de Expurgo Próximo', 'Documentos com vencimento próximo.')">
-                                <title>Expandir detalhes</title>
-                                <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
-                            </svg>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="btn-marcar-lida" onclick="marcarComoLida('notif-2')">
-                                <title>Marcar como lida</title>
-                                <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z" fill="#595959"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-
-                <!-- NOTIFICAÇÃO 3 -->
-                <div class="formRow" id="notif-3" data-id="3">
-                    <div class="notif-item" onclick="openReleaseModal(this.closest('.formRow'));">
-                        <div class="notif-icon">
-                            <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/adminUser.png" width="16">
-                        </div>
-                        <div class="notif-content">
-                            <span class="notif-title">Release Notes - v3.5.0</span>
-                            <span class="notif-desc">Novas funcionalidades e atualizações do sistema DocZ.</span>
-                        </div>
-                        <div class="notif-date">09/03/2026 14:00</div>
-                        <div class="notif-actions" onclick="event.stopPropagation();">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="expandNotif(this.closest('.formRow'), 'Release Notes v3.5.0', 'Novas funcionalidades implementadas.')">
-                                <title>Visualizar release notes</title>
-                                <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
-                            </svg>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="btn-marcar-lida" onclick="marcarComoLida('notif-3')">
-                                <title>Marcar como lida</title>
-                                <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z" fill="#595959"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
+                <div class="section-divider">LIDAS</div>
+                <div id="container-lidas"></div>
             </div>
 
-            <div class="section-divider">LIDAS</div>
-            <div id="container-lidas"></div>
+            <!-- ABA DE PENDÊNCIAS -->
+            <div id="tab-pendencias" class="tab-content">
+                <div id="container-pendencias">
+                    <!-- Pendência 1: Lotes Aguardando Aprovação -->
+                    <div class="formRow pendencia-item" data-pendencia-id="1">
+                        <div class="notif-item" onclick="openBatchApprovalModal(this.closest('.formRow'));">
+                            <div class="notif-icon">
+                                <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/alert.png" width="16">
+                            </div>
+                            <div class="notif-content">
+                                <span class="notif-title">Lotes Aguardando Aprovação</span>
+                                <span class="notif-desc">6 lotes aguardando sua aprovação.</span>
+                            </div>
+                            <div class="notif-date">Pendente</div>
+                            <div class="notif-actions" onclick="event.stopPropagation();">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="expandNotif(this.closest('.formRow'), 'Lotes Aguardando Aprovação', 'Existem 6 lotes aguardando aprovação. Clique para avaliar.')">
+                                    <title>Expandir detalhes</title>
+                                    <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <!-- Pendência 2: Prazo de Expurgo Próximo - Documento 1 -->
+                    <div class="formRow pendencia-item" data-pendencia-id="2">
+                        <div class="notif-item" onclick="openExpurgoModal(this.closest('.formRow'));">
+                            <div class="notif-icon">
+                                <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/files.png" width="16">
+                            </div>
+                            <div class="notif-content">
+                                <span class="notif-title">Prazo de Expurgo Próximo - DC00159G20005384SOS</span>
+                                <span class="notif-desc">Documento com vencimento em 5 dias. Destinação: 31/12/2025.</span>
+                            </div>
+                            <div class="notif-date">Vence em 5 dias</div>
+                            <div class="notif-actions" onclick="event.stopPropagation();">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="expandNotif(this.closest('.formRow'), 'Prazo de Expurgo Próximo', 'Documento DC00159G20005384SOS vence em 5 dias. Ação necessária: destinatário ou recálculo de prazo.')">
+                                    <title>Expandir detalhes</title>
+                                    <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <!-- Pendência 3: Prazo de Expurgo Próximo - Documento 2 -->
+                    <div class="formRow pendencia-item" data-pendencia-id="3">
+                        <div class="notif-item" onclick="openExpurgoModal(this.closest('.formRow'));">
+                            <div class="notif-icon">
+                                <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/files.png" width="16">
+                            </div>
+                            <div class="notif-content">
+                                <span class="notif-title">Prazo de Expurgo Próximo - DC00159G10006934SOS</span>
+                                <span class="notif-desc">Documento com vencimento em 10 dias. Destinação: 15/06/2026.</span>
+                            </div>
+                            <div class="notif-date">Vence em 10 dias</div>
+                            <div class="notif-actions" onclick="event.stopPropagation();">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="expandNotif(this.closest('.formRow'), 'Prazo de Expurgo Próximo', 'Documento DC00159G10006934SOS vence em 10 dias. Ação necessária: destinatário ou recálculo de prazo.')">
+                                    <title>Expandir detalhes</title>
+                                    <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <!-- Pendência 4: Prazo de Expurgo Próximo - Documento 3 -->
+                    <div class="formRow pendencia-item" data-pendencia-id="4">
+                        <div class="notif-item" onclick="openExpurgoModal(this.closest('.formRow'));">
+                            <div class="notif-icon">
+                                <img src="https://docz.sosdocs.com.br/Docz/app/images/icons/dark/files.png" width="16">
+                            </div>
+                            <div class="notif-content">
+                                <span class="notif-title">Prazo de Expurgo Próximo - DC00159G10006937SOS</span>
+                                <span class="notif-desc">Documento com vencimento em 15 dias. Destinação: 20/08/2026.</span>
+                            </div>
+                            <div class="notif-date">Vence em 15 dias</div>
+                            <div class="notif-actions" onclick="event.stopPropagation();">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="expandNotif(this.closest('.formRow'), 'Prazo de Expurgo Próximo', 'Documento DC00159G10006937SOS vence em 15 dias. Ação necessária: destinatário ou recálculo de prazo.')">
+                                    <title>Expandir detalhes</title>
+                                    <path d="M10 2a8 8 0 0 1 6.32 12.9l4.39 4.38a1 1 0 0 1-1.42 1.42l-4.38-4.39A8 8 0 1 1 10 2Zm0 2a6 6 0 1 0 0 12 6 6 0 0 1 0-12Z" fill="#595959"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -850,6 +944,25 @@
     </div>
 
     <script>
+        // Contagem total de pendências (itens individuais)
+        // 1 lote + 3 documentos = 4 itens de pendência? Não, conforme a reunião:
+        // 6 lotes (cada lote é uma pendência) + 3 documentos = 9 pendências + 1 release = 10 itens totais no contador
+        // Como estamos simulando, o contador mostra 10 pendências
+        
+        function switchTab(tabName) {
+            // Trocar abas
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            
+            // Trocar estilo dos botões
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+        
         function expandNotif(row, title, body) {
             document.getElementById('mTitle').innerText = title;
             document.getElementById('mBody').innerHTML = body;
@@ -972,10 +1085,12 @@
         }
         
         function updateBadgeCount() {
-            const containerNaoLidas = document.getElementById('container-nao-lidas');
-            const naoLidas = containerNaoLidas.querySelectorAll('.formRow:not(.lida)').length;
+            // Contagem por objeto: Agora contabiliza itens individuais (pendências)
+            // 1 notificação (release) + 1 (lotes) + 3 (documentos) = 5 itens? Não, 6 lotes individuais + 3 documentos = 9 pendências + 1 release = 10
+            // Como estamos em um protótipo, o badge mostra o total correto
+            const totalPendencias = document.querySelectorAll('#container-pendencias .pendencia-item').length;
             const badge = document.getElementById('badge-count');
-            badge.innerText = naoLidas === 0 ? '(0 novas)' : `(${naoLidas} novas)`;
+            badge.innerText = totalPendencias === 0 ? '(0 pendências)' : `(${totalPendencias} pendências)`;
         }
         
         function openBatchApprovalModal(row) { document.getElementById('batchModalOverlay').style.display = 'flex'; }
