@@ -944,19 +944,12 @@
     </div>
 
     <script>
-        // Contagem total de pendências (itens individuais)
-        // 1 lote + 3 documentos = 4 itens de pendência? Não, conforme a reunião:
-        // 6 lotes (cada lote é uma pendência) + 3 documentos = 9 pendências + 1 release = 10 itens totais no contador
-        // Como estamos simulando, o contador mostra 10 pendências
-        
         function switchTab(tabName) {
-            // Trocar abas
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
             });
             document.getElementById(`tab-${tabName}`).classList.add('active');
             
-            // Trocar estilo dos botões
             document.querySelectorAll('.tab-button').forEach(btn => {
                 btn.classList.remove('active');
             });
@@ -973,7 +966,6 @@
             document.getElementById('modalOverlay').style.display = 'none';
         }
 
-        // Marcar como lida (move para LIDAS, remove o botão envelope e adiciona o botão seta de voltar)
         function marcarComoLida(id) {
             const row = document.getElementById(id);
             const containerNaoLidas = document.getElementById('container-nao-lidas');
@@ -986,11 +978,9 @@
             setTimeout(() => {
                 row.classList.add('lida');
                 
-                // Remove o botão "Marcar como lida" (envelope)
                 const btnMarcarLida = row.querySelector('.btn-marcar-lida');
                 if (btnMarcarLida) btnMarcarLida.remove();
                 
-                // Adiciona o botão "Manter como não lida" (seta de voltar)
                 const actionsDiv = row.querySelector('.notif-actions');
                 if (actionsDiv && !actionsDiv.querySelector('.btn-nao-lida')) {
                     const svgNaoLida = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -1020,8 +1010,6 @@
                 const emptyMsgLidas = containerLidas.querySelector('.empty-message');
                 if (emptyMsgLidas) emptyMsgLidas.remove();
                 
-                updateBadgeCount();
-                
                 const naoLidasCount = containerNaoLidas.querySelectorAll('.formRow:not(.lida)').length;
                 if (naoLidasCount === 0 && !containerNaoLidas.querySelector('.empty-message')) {
                     const emptyMsg = document.createElement('div');
@@ -1032,7 +1020,6 @@
             }, 200);
         }
         
-        // Marcar como NÃO lida (move de volta para NÃO LIDAS, remove a seta e adiciona o envelope)
         function marcarComoNaoLida(id) {
             const row = document.getElementById(id);
             const containerNaoLidas = document.getElementById('container-nao-lidas');
@@ -1045,11 +1032,9 @@
             setTimeout(() => {
                 row.classList.remove('lida');
                 
-                // Remove o botão "Manter como não lida" (seta)
                 const btnNaoLida = row.querySelector('.btn-nao-lida');
                 if (btnNaoLida) btnNaoLida.remove();
                 
-                // Adiciona o botão "Marcar como lida" (envelope)
                 const actionsDiv = row.querySelector('.notif-actions');
                 if (actionsDiv && !actionsDiv.querySelector('.btn-marcar-lida')) {
                     const svgMarcarLida = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -1073,24 +1058,12 @@
                     actionsDiv.appendChild(svgMarcarLida);
                 }
                 
-                // Remove mensagem de vazio se existir
                 const emptyMsg = containerNaoLidas.querySelector('.empty-message');
                 if (emptyMsg) emptyMsg.remove();
                 
                 containerNaoLidas.insertBefore(row, containerNaoLidas.firstChild);
                 row.style.opacity = '1';
-                
-                updateBadgeCount();
             }, 200);
-        }
-        
-        function updateBadgeCount() {
-            // Contagem por objeto: Agora contabiliza itens individuais (pendências)
-            // 1 notificação (release) + 1 (lotes) + 3 (documentos) = 5 itens? Não, 6 lotes individuais + 3 documentos = 9 pendências + 1 release = 10
-            // Como estamos em um protótipo, o badge mostra o total correto
-            const totalPendencias = document.querySelectorAll('#container-pendencias .pendencia-item').length;
-            const badge = document.getElementById('badge-count');
-            badge.innerText = totalPendencias === 0 ? '(0 pendências)' : `(${totalPendencias} pendências)`;
         }
         
         function openBatchApprovalModal(row) { document.getElementById('batchModalOverlay').style.display = 'flex'; }
@@ -1101,8 +1074,6 @@
         function closeExpurgoModal() { document.getElementById('expurgoModalOverlay').style.display = 'none'; }
         function openReleaseModal(row) { document.getElementById('releaseModalOverlay').style.display = 'flex'; }
         function closeReleaseModal() { document.getElementById('releaseModalOverlay').style.display = 'none'; }
-        
-        window.onload = () => updateBadgeCount();
         
         window.onclick = (e) => {
             if (e.target.classList.contains('modal-overlay')) {
